@@ -1,0 +1,457 @@
+<title>Candy Crush Sweets</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: a corner sweet shop. Scalloped striped awning, a hero with a pile of sweets, a pick-your-own paper bag, then range, gifts, promises and a "shop opens soon" counter. */
+:root {
+  --bg: #FFF5F1;
+  --surface: #FFFFFF;
+  --ink: #2A1216;
+  --muted: #6B4B50;
+  --line: #F1D4CF;
+  --pink: #E5195E;
+  --on-pink: #FFFFFF;
+  --lime: #A6D62A;
+  --sun: #FFB81F;
+  --sky: #17A2C8;
+  --cocoa: #4A2A1C;
+
+  --font-display: "Fredoka", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Figtree", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #230F13; --surface: #331A1F; --ink: #FFF0EA; --muted: #D9B3B3; --line: #4A2A30;
+    --pink: #FF4D86; --on-pink: #230F13; --lime: #B9E94A; --sun: #FFC53D; --sky: #4CC9E8; --cocoa: #C98A62;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #230F13; --surface: #331A1F; --ink: #FFF0EA; --muted: #D9B3B3; --line: #4A2A30;
+  --pink: #FF4D86; --on-pink: #230F13; --lime: #B9E94A; --sun: #FFC53D; --sky: #4CC9E8; --cocoa: #C98A62;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 18px; line-height: 1.6;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 30; background: var(--bg);
+}
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.1; margin: 0; text-wrap: balance; letter-spacing: 0; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; border-radius: 6px; }
+
+.wrap {
+  width: 100%; max-width: 1140px; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.eyebrow {
+  font-family: var(--font-mono); font-size: 14px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--pink); font-weight: 800;
+}
+
+/* header */
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: 1; white-space: nowrap; }
+.brand svg { width: 38px; height: 24px; flex: none; }
+.brand b { color: var(--pink); font-weight: 600; }
+nav { display: flex; align-items: center; gap: 26px; }
+nav a { text-decoration: none; font-weight: 600; font-size: 15px; }
+nav a:hover { color: var(--pink); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--pink); color: var(--on-pink); text-decoration: none;
+  font-weight: 700; font-size: 16px; padding: 13px 24px; border-radius: 999px; border: 2px solid var(--pink);
+  cursor: pointer; font-family: inherit; transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.small { padding: 9px 18px; font-size: 14px; }
+nav .btn { color: var(--on-pink); }
+nav .btn:hover { color: var(--on-pink); }
+
+.awning {
+  height: 24px;
+  background: repeating-linear-gradient(90deg, var(--pink) 0 40px, var(--surface) 40px 80px);
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% 4px no-repeat, radial-gradient(circle 20px at 20px 4px, #000 19px, #0000 20px) 0 0 / 40px 24px repeat-x;
+          mask: linear-gradient(#000 0 0) top / 100% 4px no-repeat, radial-gradient(circle 20px at 20px 4px, #000 19px, #0000 20px) 0 0 / 40px 24px repeat-x;
+}
+
+/* hero */
+.hero .wrap { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; padding-block: 56px 72px; }
+.hero h1 { font-size: clamp(42px, 7vw, 84px); margin: 14px 0 20px; }
+.hero h1 em { font-style: normal; color: var(--pink); }
+.hero p.lead { font-size: 20px; max-width: 46ch; color: var(--muted); }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+.soon-tag {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 26px;
+  font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--muted);
+}
+.soon-tag i { width: 10px; height: 10px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lime) 30%, transparent); }
+
+.pile { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1 / 1; margin-inline: auto; min-width: 0; }
+.pile .disc { position: absolute; inset: 6% 6% 6% 6%; border-radius: 50%; background: var(--sun); }
+.pile .disc.ring { inset: 0; background: none; border: 2px dashed var(--pink); opacity: .6; }
+.sw { position: absolute; display: block; filter: drop-shadow(0 6px 0 rgba(42, 18, 22, .16)); }
+.sw svg { width: 100%; height: 100%; display: block; }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-9px) rotate(calc(var(--r, 0deg) + 4deg)); } }
+.pile .sw { transform: rotate(var(--r, 0deg)); animation: bob 5s ease-in-out infinite; animation-delay: var(--d, 0s); }
+
+/* ticker */
+.ticker { background: var(--ink); color: var(--bg); overflow: hidden; border-block: 0; }
+.ticker-track { display: flex; width: max-content; gap: 38px; padding: 14px 0; font-family: var(--font-display); font-weight: 500; font-size: 22px; white-space: nowrap; animation: slide 38s linear infinite; }
+.ticker-track span::after { content: "✶"; margin-left: 38px; color: var(--sun); }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* sections */
+section { padding-block: 84px; }
+.sec-head { max-width: 640px; margin-bottom: 44px; }
+.sec-head h2 { font-size: clamp(34px, 5vw, 56px); margin: 10px 0 14px; }
+.sec-head p { color: var(--muted); font-size: 19px; }
+
+/* range */
+.range-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+.card { background: var(--surface); border: 2px solid var(--ink); border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 12px; min-width: 0; box-shadow: 6px 6px 0 var(--ink); }
+.card:nth-child(1), .card:nth-child(2) { grid-column: span 3; }
+.card:nth-child(n+3) { grid-column: span 2; }
+.card h3 { font-size: 28px; }
+.card p { color: var(--muted); font-size: 17px; }
+.card .ico { width: 62px; height: 62px; border-radius: 18px; display: grid; place-items: center; background: var(--chip, var(--pink)); }
+.card .ico svg { width: 40px; height: 40px; }
+.card .unit { margin-top: auto; padding-top: 8px; font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--ink); }
+.card .unit b { font-weight: 800; background: var(--sun); color: #2A1216; padding: 2px 8px; border-radius: 6px; }
+
+/* pick bag */
+.pick { background: var(--surface); border-block: 2px solid var(--ink); }
+.pick .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+.tray { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 8px; }
+.tray button {
+  appearance: none; font: inherit; color: var(--ink); cursor: pointer; text-align: center;
+  background: var(--bg); border: 2px solid var(--ink); border-radius: 16px; padding: 12px 6px 10px; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 6px; transition: transform .12s ease, background .12s ease;
+}
+.tray button:hover { transform: translateY(-3px); background: color-mix(in srgb, var(--sun) 35%, var(--bg)); }
+.tray button:active { transform: translateY(0) scale(.97); }
+.tray .t-ico { width: 46px; height: 46px; display: block; }
+.tray .t-ico svg { width: 100%; height: 100%; display: block; }
+.tray .t-name { font-size: 13px; font-weight: 600; line-height: 1.2; }
+.bag-ui { display: flex; flex-direction: column; align-items: center; gap: 16px; min-width: 0; }
+.bag { position: relative; width: min(100%, 330px); aspect-ratio: 4 / 5; background: var(--sun); border: 2px solid var(--ink); border-radius: 6px 6px 22px 22px; padding: 44px 16px 16px; display: flex; flex-wrap: wrap; align-content: flex-end; justify-content: center; gap: 4px; box-shadow: 6px 6px 0 var(--ink); }
+.bag::before { content: ""; position: absolute; left: -2px; right: -2px; top: 0; height: 30px; background: repeating-linear-gradient(135deg, var(--pink) 0 10px, var(--surface) 10px 20px); border: 2px solid var(--ink); border-radius: 6px 6px 0 0; }
+.bag .label { position: absolute; left: 50%; top: 40px; transform: translateX(-50%); font-family: var(--font-display); font-size: 17px; color: #2A1216; white-space: nowrap; opacity: .8; }
+.bag .in { width: 54px; height: 54px; animation: pop .25s ease-out; }
+.bag .in svg { width: 100%; height: 100%; display: block; }
+@keyframes pop { from { transform: scale(.3) translateY(-30px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+.bag-meta { display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 14px; flex-wrap: wrap; justify-content: center; }
+.link-btn { appearance: none; background: none; border: 0; font: inherit; font-family: var(--font-mono); color: var(--pink); text-decoration: underline; cursor: pointer; padding: 4px; }
+.bag-note { color: var(--muted); font-size: 15px; text-align: center; min-height: 1.6em; }
+
+/* gifts */
+.gifts-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.gift { border-radius: 22px; padding: 24px; min-height: 230px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; color: #2A1216; min-width: 0; }
+.gift h3 { font-size: 27px; }
+.gift p { font-size: 17px; opacity: .85; }
+.gift .mono { font-family: var(--font-mono); font-weight: 800; font-size: 14px; letter-spacing: .1em; text-transform: uppercase; }
+.g1 { background: var(--sun); } .g2 { background: var(--lime); } .g3 { background: #FF8FB3; } .g4 { background: #7FD3EA; }
+
+/* promises */
+.promises { background: var(--ink); color: var(--bg); }
+.promises .sec-head p { color: color-mix(in srgb, var(--bg) 75%, transparent); }
+.promises .eyebrow { color: var(--sun); }
+.pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.prom { border-top: 3px solid var(--sun); padding-top: 18px; min-width: 0; }
+.prom h3 { font-size: 24px; margin-bottom: 8px; }
+.prom p { color: color-mix(in srgb, var(--bg) 85%, transparent); font-size: 17px; }
+
+/* about */
+.about .wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: center; }
+.stamp { width: 100%; max-width: 340px; aspect-ratio: 1; margin-inline: auto; position: relative; display: grid; place-items: center; border-radius: 50%; background: var(--pink); color: var(--on-pink); text-align: center; transform: rotate(-6deg); }
+.stamp::after { content: ""; position: absolute; inset: 12px; border-radius: 50%; border: 2px dashed currentColor; opacity: .7; }
+.stamp div { font-family: var(--font-display); font-size: clamp(30px, 5vw, 44px); line-height: 1; padding: 20px; }
+.stamp small { display: block; font-family: var(--font-mono); font-weight: 700; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; margin-top: 10px; }
+.about h2 { font-size: clamp(32px, 4.6vw, 50px); margin: 10px 0 18px; }
+.about p + p { margin-top: 14px; }
+.about p { color: var(--muted); font-size: 19px; max-width: 56ch; }
+.flavours { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.flavours span { font-weight: 700; font-size: 16px; padding: 6px 14px; border-radius: 999px; border: 2px solid var(--ink); background: var(--surface); }
+
+/* contact */
+.contact { background: var(--pink); color: var(--on-pink); }
+.contact .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
+.contact h2 { font-size: clamp(36px, 5.6vw, 66px); margin-bottom: 16px; }
+.contact p { font-size: 18px; max-width: 46ch; opacity: .92; }
+.box { background: var(--bg); color: var(--ink); border-radius: 22px; padding: 26px; border: 2px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.box dl { margin: 0; display: grid; gap: 14px; }
+.box dt { font-family: var(--font-mono); font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.box dd { margin: 2px 0 0; font-weight: 700; font-size: 20px; overflow-wrap: anywhere; }
+.copy-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.box .btn { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.box .btn.ghost { background: transparent; color: var(--ink); }
+
+footer { padding-block: 36px; font-size: 15px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center; }
+footer .brand { font-size: 20px; color: var(--ink); }
+
+@media (max-width: 920px) {
+  .hero .wrap, .pick .wrap, .about .wrap, .contact .wrap { grid-template-columns: 1fr; gap: 36px; }
+  .hero .wrap { padding-block: 36px 52px; }
+  .range-grid { grid-template-columns: 1fr 1fr; }
+  .card:nth-child(n) { grid-column: span 1; }
+  .card:nth-child(5) { grid-column: span 2; }
+  .gifts-grid, .pgrid { grid-template-columns: 1fr 1fr; }
+  section { padding-block: 60px; }
+  nav a:not(.btn) { display: none; }
+  nav a.keep { display: inline; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .range-grid, .gifts-grid, .pgrid { grid-template-columns: 1fr; }
+  .card:nth-child(5) { grid-column: span 1; }
+  .tray { grid-template-columns: repeat(2, 1fr); }
+  .brand { font-size: 21px; }
+  .site-header .wrap { flex-wrap: wrap; gap: 10px 14px; }
+  nav { gap: 14px; }
+  nav a { font-size: 15px; }
+  nav .btn.small { padding: 8px 14px; font-size: 14px; }
+  .awning { height: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .pile .sw, .ticker-track, .bag .in { animation: none; }
+  .btn, .tray button { transition: none; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="s-wrapped" viewBox="0 0 64 40">
+      <polygon points="0,5 17,20 0,35" style="fill:var(--b)"/>
+      <polygon points="64,5 47,20 64,35" style="fill:var(--b)"/>
+      <circle cx="32" cy="20" r="16" style="fill:var(--a)"/>
+      <path d="M22 14a12 12 0 0 1 11-5" stroke="#fff" stroke-opacity=".55" stroke-width="3" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="s-mint" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="22" style="fill:var(--a)"/>
+      <path d="M24 24V2A22 22 0 0 1 46 24Z" style="fill:var(--b)"/>
+      <path d="M24 24V46A22 22 0 0 1 2 24Z" style="fill:var(--b)"/>
+      <circle cx="24" cy="24" r="5" style="fill:var(--a)"/>
+    </symbol>
+    <symbol id="s-ring" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="16" fill="none" stroke-width="13" style="stroke:var(--a)"/>
+      <path d="M12 20a13 13 0 0 1 10-9" stroke="#fff" stroke-opacity=".5" stroke-width="3" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="s-heart" viewBox="0 0 48 48">
+      <path d="M24 43C6 29 2 18 8 10 14 3 22 6 24 12 26 6 34 3 40 10 46 18 42 29 24 43Z" style="fill:var(--a)"/>
+      <path d="M11 15a6 6 0 0 1 6-5" stroke="#fff" stroke-opacity=".55" stroke-width="3" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="s-bottle" viewBox="0 0 32 64">
+      <path d="M12 2h8v8c0 4 6 8 6 16v28a6 6 0 0 1-6 6h-8a6 6 0 0 1-6-6V26c0-8 6-12 6-16Z" style="fill:var(--a)"/>
+      <rect x="6" y="30" width="20" height="14" style="fill:var(--b)"/>
+      <rect x="11" y="0" width="10" height="5" rx="2" style="fill:var(--b)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Candy Crush Sweets, home">
+      <svg viewBox="0 0 64 40" aria-hidden="true" style="--a:var(--pink);--b:var(--sun)"><use href="#s-wrapped"/></svg>
+      <span>Candy <b>Crush</b></span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#range">The range</a>
+            <a href="#gifts">Gifts &amp; events</a>
+      <a class="keep" href="/allergens">Allergens</a>
+      <a href="#about">About</a>
+      <a class="btn small" href="#hello">Say hello</a>
+    </nav>
+  </div>
+</header>
+<div class="awning" aria-hidden="true"></div>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Sweets by the quarter &middot; Gift jars &middot; Party sweets</p>
+        <h1>Traditional <em>Pick'N'Mix</em></h1>
+        <p class="lead">Fizzy, chewy, sour and chocolate-covered sweets, mixed the way you like them. Weigh out a quarter for yourself or fill a jar for someone you love.</p>
+        <div class="cta">
+          <a class="btn" href="#range">See the range</a>
+          <a class="btn ghost" href="#hello">Say hello</a>
+        </div>
+        <p class="soon-tag"><i></i>Online shop opening soon</p>
+      </div>
+
+      <div class="pile" aria-hidden="true">
+        <div class="disc"></div>
+        <div class="disc ring"></div>
+        <span class="sw" style="--a:var(--pink);--b:var(--surface);--r:-12deg;--d:0s;width:30%;height:19%;left:16%;top:14%"><svg><use href="#s-wrapped"/></svg></span>
+        <span class="sw" style="--a:#fff;--b:var(--pink);--r:10deg;--d:.6s;width:20%;height:20%;left:62%;top:10%"><svg><use href="#s-mint"/></svg></span>
+        <span class="sw" style="--a:var(--lime);--r:18deg;--d:1.2s;width:24%;height:24%;left:70%;top:44%"><svg><use href="#s-ring"/></svg></span>
+        <span class="sw" style="--a:#E5195E;--r:-8deg;--d:.3s;width:24%;height:24%;left:12%;top:48%"><svg><use href="#s-heart"/></svg></span>
+        <span class="sw" style="--a:#5A2E1C;--b:#FFF0EA;--r:14deg;--d:.9s;width:13%;height:26%;left:44%;top:30%"><svg><use href="#s-bottle"/></svg></span>
+        <span class="sw" style="--a:var(--sky);--b:#fff;--r:-16deg;--d:1.5s;width:28%;height:18%;left:36%;top:70%"><svg><use href="#s-wrapped"/></svg></span>
+        <span class="sw" style="--a:var(--sun);--b:#fff;--r:6deg;--d:.2s;width:16%;height:16%;left:6%;top:76%"><svg><use href="#s-mint"/></svg></span>
+        <span class="sw" style="--a:#FF8FB3;--r:-20deg;--d:1s;width:17%;height:17%;left:78%;top:76%"><svg><use href="#s-ring"/></svg></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Fizzy cola bottles</span><span>Jelly hearts</span><span>Sherbet saucers</span><span>Chocolate-covered</span><span>Sour rings</span><span>Peppermint swirls</span><span>Wrapped toffees</span><span>Gummy bears</span>
+      <span>Fizzy cola bottles</span><span>Jelly hearts</span><span>Sherbet saucers</span><span>Chocolate-covered</span><span>Sour rings</span><span>Peppermint swirls</span><span>Wrapped toffees</span><span>Gummy bears</span>
+    </div>
+  </div>
+
+  <section id="range">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">The range</p>
+        <h2>Everything on the counter</h2>
+        <p>Five ways to enjoy a lot of sweets. Choose your own favourites or let us mix a pouch for you.</p>
+      </div>
+      <div class="range-grid">
+        <article class="card" style="--chip:var(--pink)">
+          <div class="ico" style="--a:#fff;--b:var(--sun)"><svg><use href="#s-wrapped"/></svg></div>
+          <h3>Pick 'n' mix</h3>
+          <p>Choose every sweet yourself, from fizzy to chewy to sour. Packed into a pouch, a bowl or a bucket.</p>
+          <p class="unit">Pouches from <b>250g</b> to <b>1kg</b></p>
+        </article>
+        <article class="card" style="--chip:var(--lime)">
+          <div class="ico" style="--a:var(--pink);--b:#fff"><svg><use href="#s-mint"/></svg></div>
+          <h3>Ready-made mixes</h3>
+          <p>Themed pouches we have already balanced for you, like Rainbow, Sunset or Sour Squad. Open and share.</p>
+          <p class="unit">Sealed <b>250g</b> pouches</p>
+        </article>
+        <article class="card" style="--chip:var(--sky)">
+          <div class="ico" style="--a:var(--pink)"><svg><use href="#s-heart"/></svg></div>
+          <h3>Sweet jars</h3>
+          <p>A glass jar filled to the brim and labelled for the occasion. A gift that looks as good as it tastes.</p>
+          <p class="unit">Jar plus <b>1kg</b> of sweets</p>
+        </article>
+        <article class="card" style="--chip:var(--sun)">
+          <div class="ico" style="--a:#5A2E1C;--b:#FFF0EA"><svg viewBox="0 0 32 64" style="padding:0 8px"><use href="#s-bottle"/></svg></div>
+          <h3>Chocolate-covered</h3>
+          <p>Fruit jellies, honeycomb and crunchy centres wrapped in smooth chocolate.</p>
+          <p class="unit">Tubs and <b>250g</b> bags</p>
+        </article>
+        <article class="card" style="--chip:#FF8FB3">
+          <div class="ico" style="--a:var(--sun)"><svg><use href="#s-ring"/></svg></div>
+          <h3>Mystery boxes</h3>
+          <p>A surprise box of fresh favourites and new finds. Perfect when you cannot choose.</p>
+          <p class="unit">Boxes with <b>1kg</b> and up</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="gifts">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Gifts &amp; events</p>
+        <h2>Sweets for every excuse</h2>
+        <p>If there is a table, a party bag or a present to fill, there is a way to do it in sweets.</p>
+      </div>
+      <div class="gifts-grid">
+        <article class="gift g1"><span class="mono">Birthdays</span><div><h3>Birthday jars</h3><p>A glass jar of their favourite sweets, labelled and ready to hand over.</p></div></article>
+        <article class="gift g2"><span class="mono">Weddings</span><div><h3>Wedding favours</h3><p>Small bags for every guest, in your colours, in any quantity you need.</p></div></article>
+        <article class="gift g3"><span class="mono">Parties</span><div><h3>Sweet tables</h3><p>Bowls, platters and buckets that keep a party table topped up all afternoon.</p></div></article>
+        <article class="gift g4"><span class="mono">Teams &amp; clients</span><div><h3>Corporate treats</h3><p>Thank-you boxes and desk jars that people actually look forward to.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="promises">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Our promise</p>
+        <h2>The boring bits, done properly</h2>
+        <p>Sweets are simple. The standards behind them should be too.</p>
+      </div>
+      <div class="pgrid">
+        <div class="prom"><h3>Fresh stock</h3><p>Sweets are packed in small batches so nothing sits on a shelf for months.</p></div>
+        <div class="prom"><h3>Your mix, your way</h3><p>Nobody tells you what goes in the bag. Pick fifteen of one thing if you like.</p></div>
+        <div class="prom"><h3>Fair prices</h3><p>Clear weights and clear prices, with no surprises at the till.</p></div>
+        <div class="prom"><h3>Ingredients shown</h3><p>Allergens and ingredients are listed for every sweet, so you can choose with confidence.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="stamp" aria-hidden="true"><div>Sweets, weighed &amp; packed<small>Candy Crush</small></div></div>
+      <div>
+        <p class="eyebrow">About</p>
+        <h2>A proper sweet shop, built for the internet</h2>
+        <p>Candy Crush is a UK sweet business for people who still love a pick 'n' mix. We bring the classic counter experience to your kitchen table, with the favourites you remember and the new flavours everyone is talking about.</p>
+        <p>Our online shop is on its way. Until then, say hello and tell us what you would like to see in the bag.</p>
+        <div class="flavours" aria-label="Sweet styles">
+          <span>Fizzy</span><span>Sour</span><span>Chewy</span><span>Chocolatey</span><span>Retro</span><span>Vegan-friendly options</span><span>Gluten-free options</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hello" class="contact">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow" style="color:var(--on-pink);opacity:.85">Shop opening soon</p>
+        <h2>Say hello before we open</h2>
+        <p>Planning a wedding, a party or a gift run? Get in touch now and we will line up your sweets for launch.</p>
+      </div>
+      <div class="box">
+        <dl>
+          <div><dt>Website</dt><dd>candy-crush.co.uk</dd></div>
+          <div><dt>Email</dt><dd id="email">milliemix007@gmail.com</dd></div>
+          <div><dt>Phone</dt><dd id="phone">07383 039157</dd></div>
+        </dl>
+        <div class="copy-row">
+          <button class="btn small" id="copy-email" type="button">Copy email</button>
+          <button class="btn small ghost" id="copy-phone" type="button">Copy phone</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="brand"><svg viewBox="0 0 64 40" aria-hidden="true" style="--a:var(--pink);--b:var(--sun)"><use href="#s-wrapped"/></svg><span>Candy <b>Crush</b></span></span>
+    <span><a href="/allergens">Allergens</a> &middot; &copy; 2026 Candy Crush &middot; candy-crush.co.uk &middot; Online shop coming soon.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  function wire(btnId, srcId, label) {
+    var btn = document.getElementById(btnId), src = document.getElementById(srcId);
+    btn.addEventListener("click", function () {
+      function done() { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = label; }, 1800); }
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(src);
+        var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      }
+      try { navigator.clipboard.writeText(src.textContent.replace(/\s/g, "")).then(done, fallback); } catch (e) { fallback(); }
+    });
+  }
+  wire("copy-email", "email", "Copy email");
+  wire("copy-phone", "phone", "Copy phone");
+})();
+</script>

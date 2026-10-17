@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pick & Mix Allergen Guide</title>
+<meta name="description" content="Ingredients and allergen information for the pick and mix sweets sold by Candy Crush.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<style>
+/* Layout: sticky filter bar over a single-column list of expandable sweet rows, built for a phone held at a market stall. */
+:root{
+  --bg:#fbf6f9; --surface:#ffffff; --fg:#2b1631; --muted:#6c5a72; --line:#e8dbe6;
+  --accent:#b3123f; --accent-fg:#ffffff; --warn-bg:#fde4ea; --warn-fg:#8f0d31;
+  --ok-bg:#dff1e6; --ok-fg:#14573a; --info-bg:#efe6f3; --info-fg:#4b2f57; --amber-bg:#fff0d0; --amber-fg:#7a4b00;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif; --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1a0f1f; --surface:#26162c; --fg:#f6eaf3; --muted:#b9a5bf; --line:#3d2946;
+  --accent:#ff5c85; --accent-fg:#2b0613; --warn-bg:#4b1325; --warn-fg:#ffb3c5;
+  --ok-bg:#12382a; --ok-fg:#9be0bb; --info-bg:#35223d; --info-fg:#e0c9ea; --amber-bg:#46320a; --amber-fg:#ffd98a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a0f1f; --surface:#26162c; --fg:#f6eaf3; --muted:#b9a5bf; --line:#3d2946;
+  --accent:#ff5c85; --accent-fg:#2b0613; --warn-bg:#4b1325; --warn-fg:#ffb3c5;
+  --ok-bg:#12382a; --ok-fg:#9be0bb; --info-bg:#35223d; --info-fg:#e0c9ea; --amber-bg:#46320a; --amber-fg:#ffd98a; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);padding-block:0 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:760px;margin:0 auto}
+header{padding-top:28px}
+.kicker{font:600 12px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+h1{font:800 clamp(30px,8vw,46px)/1.02 var(--display);margin:0 0 14px;text-wrap:balance;letter-spacing:-.01em}
+.notice{background:var(--amber-bg);color:var(--amber-fg);border-radius:10px;padding:12px 14px;font-size:15px;margin:0}
+.notice strong{font-weight:600}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:14px 0 10px;margin-top:18px;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.search{width:100%;font:inherit;padding:11px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg)}
+.search:focus-visible,.chip:focus-visible,summary:focus-visible,.reset:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.group{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:10px}
+.glabel{font:600 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);width:100%}
+.chip{font:500 14px/1 var(--body);padding:9px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+.chip[aria-pressed="true"].avoid{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.chip[aria-pressed="true"].diet{background:var(--ok-fg);border-color:var(--ok-fg);color:var(--bg)}
+.status{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;font-size:14px;color:var(--muted)}
+.reset{font:500 14px var(--body);background:none;border:0;color:var(--accent);cursor:pointer;text-decoration:underline;padding:4px}
+.hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+ul.list{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+summary{cursor:pointer;list-style:none;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+summary::-webkit-details-marker{display:none}
+.name{font:600 18px/1.2 var(--display);display:flex;justify-content:space-between;gap:10px}
+.name::after{content:"+";color:var(--muted);font-weight:400}
+details[open] .name::after{content:"\2212"}
+.sub{font-size:14px;color:var(--muted);margin:0}
+.badges{display:flex;flex-wrap:wrap;gap:5px}
+.b{font:600 12.5px/1 var(--body);padding:5px 8px;border-radius:6px;white-space:nowrap}
+.b.w{background:var(--warn-bg);color:var(--warn-fg)}
+.b.d{background:var(--ok-bg);color:var(--ok-fg)}
+.b.i{background:var(--info-bg);color:var(--info-fg)}
+.b.a{background:var(--amber-bg);color:var(--amber-fg)}
+.more{padding:0 14px 14px;border-top:1px solid var(--line);font-size:15px}
+.more h3{font:600 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px}
+.more p{margin:0;overflow-wrap:anywhere;white-space:pre-line}
+.more strong{color:var(--warn-fg);font-weight:800}
+.empty{padding:28px 0;text-align:center;color:var(--muted)}
+footer{margin-top:28px;font-size:14px;color:var(--muted);font-style:italic}
+@media (prefers-reduced-motion:no-preference){details{transition:border-color .15s}details[open]{border-color:var(--accent)}}
+.kicker a{color:inherit;text-decoration:none}.kicker a:hover{text-decoration:underline}
+</style>
+</head><body>
+<div class="wrap">
+<header>
+  <p class="kicker"><a class="back" href="/">&larr; Back to Candy Crush</a></p>
+  <h1>Pick &amp; Mix Ingredients &amp; Allergen Guide</h1>
+  <p class="notice"><strong>Please ask a member of staff if you have any allergy or dietary requirement.</strong> Information is taken from the manufacturers' labels. Sweets are packed and handled in shared areas, so cross-contamination is possible.</p>
+</header>
+
+<div class="bar">
+  <label for="q" hidden>Search sweets</label>
+  <input id="q" class="search" type="search" placeholder="Search sweets or ingredients" autocomplete="off">
+  <div class="group" role="group" aria-labelledby="gl1">
+    <span class="glabel" id="gl1">Hide sweets that contain or may contain</span>
+    <button class="chip avoid" data-k="wheat" aria-pressed="false">Wheat / gluten</button>
+    <button class="chip avoid" data-k="soya" aria-pressed="false">Soya</button>
+    <button class="chip avoid" data-k="milk" aria-pressed="false">Milk</button>
+    <button class="chip avoid" data-k="coconut" aria-pressed="false">Coconut</button>
+    <button class="chip avoid" data-k="colour" aria-pressed="false">Colours (E102, E110, E122, E129)</button>
+  </div>
+  <div class="group" role="group" aria-labelledby="gl2">
+    <span class="glabel" id="gl2">Show only</span>
+    <button class="chip diet" data-k="vegan" aria-pressed="false">Vegan</button>
+    <button class="chip diet" data-k="nopork" aria-pressed="false">No pork gelatine</button>
+    <button class="chip diet" data-k="halal" aria-pressed="false">Halal gelatine stated</button>
+  </div>
+  <div class="status"><span id="count" aria-live="polite"></span><button class="reset" id="reset" hidden>Clear filters</button></div>
+</div>
+
+<p class="hint">A sweet that remains in the list has no declared match for your filters on its label. Always check the full entry and ask staff.</p>
+<ul class="list" id="list"></ul>
+<p class="empty" id="empty" hidden>No sweets match. Clear a filter or ask a member of staff.</p>
+<footer>Allergen information is based on manufacturers' labels at the time of printing and may change. Always check the packaging if in doubt.</footer>
+</div>
+
+<script>
+/* flags: w wheat, s soya, m may contain milk, mf made where milk is handled, g may contain gluten, c coconut,
+   v vegan, p pork gelatine, b beef gelatine, h halal stated, u gelatine source not stated, e flagged colours, gf label says gluten free */
+const D=[
+["Bebeto Mushrooms","Strawberry and vanilla flavour soft sweets.","Glucose syrup, sugar, apple juice from concentrate, corn starch, beef gelatine, acidity regulator (citric acid), palm oil, flavourings, glazing agents (carnauba wax, beeswax), colour (allura red AC).","None declared on label.","Allura red AC (E129) may have an adverse effect on activity and attention in children.","b e"],
+["Blue Raspberry Ponpon","","Glucose syrup, sugar, halal beef gelatine, water, apple juice concentrate (1.1%), acidity regulators (citric acid, tricalcium citrate), humectant (sorbitol), flavouring, colour (E133), starch.","None declared on label.","","b h"],
+["CandyCrave Fizzy Bubblegum Bottles","","Glucose syrup, sugar, corn starch, beef gelatine, acidity regulator (citric acid), acids (tartaric acid, malic acid), colours (titanium dioxide, brilliant blue), flavouring, fruit and vegetable juice concentrates (apple, radish, blackcurrant).","May contain **GLUTEN**. Packed in a factory that also packs products containing gluten, peanuts, tree nuts, milk, soya, egg, and products containing sulphur dioxide/sulphites.","","b g"],
+["Chewy Toffee Bon Bons","Toffee-flavoured chewy bon bons.","Sugar, glucose syrup, palm oil, humectant: sorbitol; pork gelatine, dextrose, natural flavourings, emulsifier: **SOYA** lecithin.","Contains **SOYA**.","","s p"],
+["Christmas Mix (Monmore Confectionery)","","Glucose syrup, sugar, dextrose, water, corn starch, gelatine, modified potato starch; humectants (sorbitols, glycerol); citric acid, malic acid, invert sugar syrup; gelling agent (pectin); acidity regulators (sodium citrates, sodium malates); vegetable oils (coconut, palm kernel, rapeseed); glazing agents (beeswax, carnauba wax); concentrates of safflower, lemon, radish, blackcurrant, carrot, apple, pumpkin and tomato; colours (E100, E102, E120, E122, E129, E133, E141, E150d, E153, E160a, E160c, E171).","None declared on the supplied label.","Contains E102, E122 and E129, which may have an adverse effect on activity and attention in children. Gelatine source not stated.","u e"],
+["Cola Bottles (Sweetzone)","","Glucose syrup, sugar, halal beef gelatine, dextrose, reconstituted apple juice from concentrate (1%), citric acid, glazing agents (palm oil, carnauba wax), cola flavouring, caramel colour (E150a).","None declared on label.","","b h"],
+["Cola Flavour Sour Cola Bottles","Sour cola bottle shaped jelly gummy with apple juice.","Glucose syrup, sugar, halal beef gelatine, water, dextrose, apple juice concentrate (1.1%), acidity regulators (citric acid, malic acid, sodium hydrogen malate), flavouring, colours (E102, E129, E133).","None declared on label.","E102 and E129 may have an adverse effect on activity and attention in children.","b h e"],
+["Fizzy Blue Bottles","Fruit flavour gums.","Glucose syrup, sugar, beef gelatine (halal), modified corn starch, apple juice from concentrate (1%), citric acid, flavourings, fumaric acid, malic acid, colours (E133, E171, E129).","None declared on label.","Consumption of E129 may have an adverse effect on activity and attention in children.","b h e"],
+["Fizzy Blue Raspberry Pencils","","Sugar, glucose syrup, **WHEAT** flour (gluten), corn starch, vegetable fat (palm), dextrose, acid (malic acid), apple juice concentrate, acidity regulator (citric acid), flavouring, humectant (sorbitol), emulsifier (mono- and diglycerides of fatty acids), colour (brilliant blue).","Contains **WHEAT** (**GLUTEN**). Packed in a factory that also packs products containing gluten, peanuts, tree nuts, milk, soya, egg, and products containing sulphur dioxide/sulphites.","","w g"],
+["Fizzy Jelly Mix (Monmore Confectionery)","","Glucose syrup, sugar, gelatine, modified potato starch, corn starch (contains **WHEAT**); acids: citric, tartaric and malic acid; fruit and plant concentrates (lemon, safflower, radish, tomato, apple, aronia, elderberry, grape, hibiscus, kiwi, mango, nettle, orange, watermelon, passion fruit, pumpkin, carrot, blackcurrant); gelling agent (pectins); colours (E100, E102, E110, E120, E129, E133, E141, E160a, E161b, E160c).","Contains **WHEAT**.","Contains E102, E110 and E129, which may have an adverse effect on activity and attention in children. Gelatine source not stated.","w u e"],
+["Fizzy Peach Sunsets","","Sugar, glucose syrup, gelatine, acids (citric acid, malic acid, sodium malate), natural flavouring, colours (E100, E120).","None declared on label.","Gelatine source not stated.","u"],
+["Fizzy Strawberry Hearts","Fruit flavour gums.","Glucose syrup, sugar, beef gelatine (halal), modified corn starch, apple juice from concentrate (1%), citric acid, fumaric acid, malic acid, flavouring, colour (E163).","None declared on label.","","b h"],
+["Foam Shrimps","","Sugar, glucose syrup, invert sugar syrup, gelatine, flavourings, gelling agent: pectins; stabilizer: diphosphates, colour: E162.","May contain traces of **MILK**.","Gluten free. Gelatine source not stated.","m u gf"],
+["Foam Strawberry Milkshakes","Strawberry-flavoured foam sweets.","Sugar, glucose syrup, water, gelatine, acid: citric acid; fruit and vegetable concentrates (blackcurrant, carrot); flavourings, glazing agents (carnauba wax, beeswax).","May contain traces of **MILK**.","Gelatine source not stated.","m u"],
+["Fruit Flavoured Gums / Sugar Coated Gummy","","Glucose syrup, sugar, modified potato starch, grape juice from concentrate (5%), gelatine, acidity regulator (citric acid), acids (lactic acid, fumaric acid), flavourings, colours (see print on back of pack).","None declared on label.","Gelatine source not stated.","u"],
+["Giant Sour Cherries (Vidal)","Sold as jelly sweets and bubble gum varieties.","Jelly: Sugar, glucose syrup, invert sugar syrup, gelatine, gelling agent: pectin; starch, modified starch, maltodextrins, dextrose; acids: citric acid, tartaric acid, lactic acid, malic acid, acetic acid; hydrolysed rice protein, potato protein; humectant: glycerol, sorbitols; apple juice from concentrate; acidity regulator: sodium citrates, sodium malates; glazing agent: carnauba wax, beeswax; vegetable concentrates (lemon, safflower, carrot, blackcurrant, radish, pumpkin, apple, tomato, sweet potato, cherry, spirulina, hibiscus, elderberry); olive oil; flavourings; colours (see stamp).\nJelly dragees: thickening agent: arabic gum; glazing agent: shellac.\n\nBubble gum: Sugar, glucose syrup, gum base, dextrose, humectant: glycerol, sorbitols; emulsifier: **SOYA** lecithin, sunflower lecithin; thickening agent: arabic gum; modified starch, olive oil; glazing agent: shellac, beeswax, carnauba wax; vegetable oils (palm, coconut, rapeseed); vegetable concentrates (lemon, safflower, carrot, blackcurrant, radish, pumpkin, apple, tomato, sweet potato, cherry, spirulina, hibiscus); flavourings; colours (see stamp). Antioxidant: BHT or BHA.\n\nWith effervescent filling: dextrose; acids: citric acid, tartaric acid, malic acid; anticaking agent: calcium phosphates.","Bubble gum contains **SOYA**. May contain traces of **MILK**.","Gelatine source not stated.","s m u c"],
+["Goldbears","Fruit flavour gums.","Glucose syrup, sugar, gelatine, dextrose; fruit concentrates (safflower, spirulina, apple, elderberry, orange, blackcurrant, kiwi, lemon, aronia, mango, grape, passion fruit); flavouring, elderberry extract; glazing agent: beeswax.","None declared on label.","Gelatine source not stated.","u"],
+["Haribo Friendship Rings","","Glucose syrup, sugar, gelatine, dextrose, acid: citric acid; fruit and plant concentrates (apple, aronia, blackcurrant, elderberry, grape, kiwi, safflower, spirulina); flavouring, sunflower oil, glazing agent: beeswax, caramelised sugar syrup, elderberry extract.","None declared in the ingredient list.","Without artificial colours. Gelatine source not stated.","u"],
+["Haribo Happy Cola","","Glucose syrup, sugar, gelatine, dextrose, acid: citric acid; caramelised sugar syrup, sunflower oil, flavouring, glazing agent: beeswax.","None declared in the ingredient list.","Gelatine source not stated.","u"],
+["Halloween Mix (Monmore Confectionery)","","Glucose syrup, sugar, dextrose, water, corn starch, gelatine, modified potato starch, **WHEAT**; humectants (sorbitols, glycerol); citric acid, malic acid, invert sugar syrup; gelling agent (pectin); sodium citrates, sodium malates; vegetable oils (coconut, palm kernel, rapeseed); glazing agents (beeswax, carnauba wax); concentrates of safflower, lemon, radish, blackcurrant, carrot, apple, pumpkin and tomato; colours (E100, E102, E120, E122, E128, E133, E141, E150d, E153, E160a, E160c, E171).","Contains **WHEAT**.","Contains E102 and E122, which may have an adverse effect on activity and attention in children. Gelatine source not stated.","w u e"],
+["Jelly Christmas Trees","","Glucose syrup, sugar, gelatine, corn starch; humectant: glycerol; acids: citric acid, malic acid; fruit and vegetable concentrates (safflower, spirulina, radish, blackcurrant, carrot); gelling agent: pectins; flavourings, colour: E120.","May contain traces of **MILK**.","Gluten free. Gelatine source not stated.","m u gf"],
+["Jelly Elves","Fruit flavour candy.","Glucose syrup, sugar, corn starch, gelatine; acid: lactic acid; flavourings, gelling agent: pectins; glazing agent: carnauba wax, beeswax; colour: E129.","May contain traces of **MILK**.","E129 may have an adverse effect on activity and attention in children. Gluten free.\nNutrition per 100g: energy 1425 kJ / 335 kcal; fat 0.2g, of which saturates 0.2g; carbohydrate 79g, of which sugars 56g; protein 4.0g; salt 0.12g.","m u e gf"],
+["Jelly Gingerbread Man","","Sugar, glucose syrup, water, invert sugar syrup, gelatine, corn starch; acid: lactic acid; fruit and vegetable concentrates (carrot, apple, hibiscus); flavourings; gelling agent: pectins; glazing agents: carnauba wax, beeswax.","May contain traces of **MILK**.","Gluten free. Gelatine source not stated.","m u gf"],
+["Jelly Mix (Monmore Confectionery)","","Glucose syrup, sugar, gelatine, modified potato starch, **WHEAT**; citric acid, malic acid, natural flavourings; plant and fruit extracts (lemon, safflower, radish, tomato, apple, aronia, elderberry, grape, hibiscus, kiwi, mango, nettle, orange, passion fruit, pumpkin, carrot, blackcurrant); colours (E100, E120, E133, E160a, E160c, E150c, E153, E131, E141, E102).","Contains **WHEAT**.","Contains E102, which may have an adverse effect on activity and attention in children. Gelatine source not stated.","w u e"],
+["Liquorice Allsorts","Assorted liquorice and coconut sweets and round jelly buttons.","Sugar, treacle, **WHEAT** flour (wheat flour, calcium carbonate, iron, niacin, folic acid, thiamine), glucose syrup, desiccated coconut, vegetable oils (palm oil, safflower oil), beef gelatine, maize starch, humectant (glycerine), colours (plain caramel, curcumin, beetroot red, paprika extract), fat reduced cocoa powder, liquorice extract (0.1%), glazing agent (carnauba wax), flavourings, spirulina concentrate, fruit and vegetable concentrates (blackcurrant, carrot).","Contains **WHEAT** (gluten). Contains coconut.","","w c b"],
+["Marshmallow Whips: Raspberry","Sugar coated raspberry and vanilla flavour marshmallow.","Glucose and fructose syrup, sugar, gelatine (pork), water, flavourings, humectant (E420), colour: E133.","Made in a factory that also handles **MILK** derivatives.","","mf p"],
+["Marshmallow Whips: Strawberry","Sugar-coated strawberry and vanilla flavour marshmallow.","Glucose and fructose syrup, sugar, gelatine (pork), water, flavourings, humectant: E420; colour: E120.","Made in a factory that also handles **MILK** derivatives.","Gluten free.","mf p gf"],
+["Marshmallows (Pink Bag, UK Section)","","Glucose-fructose syrup, sugar, water, glucose syrup, gelatine, potato protein, corn starch, dextrose; gelling agent: pectins; invert sugar syrup, flavourings; acid: citric acid; acidity regulator: sodium citrates; fruit and vegetable concentrates (lemon, safflower, spirulina, carrot, radish, blackcurrant); flavourings; colours (see stamp).","May contain traces of **MILK**.","Gelatine source not stated.","m u"],
+["Peach Rings (Sour Double Layer Gummy)","Fruit flavour gum sweets.","Glucose syrup, sugar, water, gelatine, acidity regulator (citric acid), grape juice concentrate (1.25%), acids (lactic and fumaric acid), thickener (pectin), flavourings, colours (see print on back of pack).","None declared on label.","Gelatine source not stated.","u"],
+["Peach Rings (Beef Gelatine)","","Glucose syrup, sugar, beef gelatine, acidity regulator (citric acid), acids (tartaric acid, malic acid), flavouring, colours (tartrazine, allura red, sunset yellow).","May contain **GLUTEN**. Packed in a factory that also packs products containing gluten, peanuts, tree nuts, milk, soya, egg, and products containing sulphur dioxide/sulphites.","Tartrazine (E102), allura red (E129) and sunset yellow (E110) may have an adverse effect on activity and attention in children.","g b e"],
+["Red Strawberries","","Sugar, glucose syrup, water, gelatine, corn starch; acid: citric acid; gelling agent: pectins; flavourings, colours: E120, E129, E160c.","None declared on label.","Gluten free. E129 may have an adverse effect on activity and attention in children. Gelatine source not stated.","u e gf"],
+["Sour Bears","","Glucose syrup, sugar, beef gelatine (halal), modified corn starch, apple juice from concentrate (1%), citric acid, fumaric acid, malic acid, flavourings, colours (E160a(iii), E141, E100(ii), E163, E133).","None declared on label.","","b h"],
+["Sour Giant Strawberries (Vegan)","Fruit flavour candy.","Glucose syrup, sugar, dextrose, modified potato starch, corn starch; acids: citric acid, malic acid; acidity regulator: sodium citrates; fruit and vegetable concentrates (safflower, spirulina, blackcurrant, carrot); flavourings.","None declared on label.","Gluten free. Suitable for vegans.","v gf"],
+["Strawberry Chewy Bon Bons","","Sugar, glucose syrup, palm oil, humectant: sorbitol; citric acid, pork gelatine, dextrose, natural flavouring, colour: E120; emulsifier: **SOYA** lecithin.","Contains **SOYA**.","","s p"],
+["Sugared Strawberry (Fraise Fouettée)","Golosina / jelly sweets.","Glucose syrup, sugar, water, halal beef gelatine, modified potato starch, acidulants (E330, E270), pectin, artificial flavour, colours (E129, E163, E160a(i)).","None declared on label.","E129 may have an adverse effect on activity and attention in children.","b h e"],
+["Sweetzone Rainbow Belts","","Sugar, glucose syrup, **WHEAT** flour, apple juice from concentrate (1.5%), citric acid, malic acid, palm oil, humectant (sorbitol), emulsifier (E471), colours (E171, E102, E133, E110, E122, E129).","Contains **WHEAT** (gluten).","Label states \"vegetable source\". E102, E110, E122 and E129 may have an adverse effect on activity and attention in children.","w e"],
+["Sweetzone Strawberry Puffs","","Glucose syrup, sugar, modified corn starch, beef gelatine (halal), apple juice from concentrate (1%), citric acid, fumaric acid, malic acid, flavourings, colours (E171, E129).","None declared on label.","E129 may have an adverse effect on activity and attention in children.","b h e"],
+["Top Mallow Black Marshmallow (Vanilla Flavour)","","Sugar, glucose-fructose syrup, water, halal beef gelatine, flavouring, colour (E153).","None declared on label.","","b h"],
+["Twin Cherries","","Glucose syrup, sugar, beef gelatine (halal), dextrose, apple juice from concentrate (1%), citric acid, glazing agents (palm oil, carnauba wax), flavourings, colours (E100(ii), E141, E163, E133).","None declared on label.","","b h"],
+["Twist Kisses (Twist Bissou)","","Glucose syrup, sugar, gelatine, corn starch; acids: citric acid, lactic acid; gelling agent: pectins; flavourings, vegetable oil (palm); glazing agents: carnauba wax, beeswax; fruit and vegetable concentrates (radish, blackcurrant, carrot); colour: E160c.","May contain traces of **MILK**.","Gluten free. Gelatine source not stated.","m u gf"],
+["Vegan Fizzy Pomegranate & Cherry Skulls","","Glucose syrup, sugar, modified starches (**WHEAT**, maize, potato), acids (lactic acid, malic acid, sodium malate, citric acid), natural flavouring, fruit and vegetable concentrate (black carrot).","Contains **WHEAT**. Suitable for vegans.","","w v"],
+["Vegan Fizzy Reefs","","Glucose syrup, sugar, modified starches (gluten-free **WHEAT**, maize, potato), acids (malic acid, sodium malate, lactic acid, citric acid), natural flavourings, fruit and vegetable concentrates (black carrot), colour (E141).","Contains **WHEAT** (label describes the wheat starch as gluten free). Suitable for vegans.","","w v"],
+["Vegan Sour Dots","Fruit-flavoured vegan gummy sweets.","Glucose syrup, sugar, modified starches (gluten-free **WHEAT**, maize, potato), acids (malic acid, sodium malate, lactic acid, citric acid), natural flavourings, fruit and vegetable concentrates (black carrot), colours (E100, E160c, E133).","Contains **WHEAT** (label describes the wheat starch as gluten free). Suitable for vegans.","","w v"],
+["Vidal Monster / Spooky Mix (Surtido Terror)","Gummy jellies.","Glucose syrup, sugar, water, gelatine, starch, humectant (E420); acids (E330, E270), acidity regulator (E325); glazing agents (E901, E903); flavourings; concentrates (safflower, carrot, blackcurrant); colours (E100, E133, E150a, E160c, E163).","None declared on label.","Gluten free. Gelatine source not stated.","u gf"],
+["Watermelon Slices","","Glucose syrup, sugar, modified corn starch, beef gelatine (halal), apple juice from concentrate (1%), citric acid, flavourings, colours (E161b, E129, E133).","None declared on label.","Consumption of E129 may have an adverse effect on activity and attention in children.","b h e"],
+["Yummy Gummy Cherries","Cherry flavoured jelly gum.","Glucose syrup, sugar, gelling agent (halal beef gelatine), apple juice concentrate (2%), dextrose, acidity regulator (citric acid), flavour, palm oil, glazing agents (carnauba wax, beeswax), colours (E163, E141).","None declared on label.","","b h"]
+].map(r=>({name:r[0],desc:r[1],ing:r[2],all:r[3],note:r[4],f:new Set(r[5].split(" "))}));
+
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const bold=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+const plain=s=>s.replace(/\*\*/g,"");
+function badges(f){
+  const o=[];
+  if(f.has("w"))o.push(["w","Contains wheat"]);
+  if(f.has("s"))o.push(["w","Contains soya"]);
+  if(f.has("c"))o.push(["w","Contains coconut"]);
+  if(f.has("m"))o.push(["a","May contain milk"]);
+  if(f.has("mf"))o.push(["a","Made where milk is handled"]);
+  if(f.has("g"))o.push(["a","May contain gluten"]);
+  if(f.has("e"))o.push(["a","Colours flagged for children"]);
+  if(f.has("v"))o.push(["d","Vegan"]);
+  if(f.has("p"))o.push(["i","Pork gelatine"]);
+  if(f.has("b"))o.push(["i",f.has("h")?"Halal beef gelatine":"Beef gelatine"]);
+  if(f.has("u"))o.push(["i","Gelatine source not stated"]);
+  if(f.has("gf"))o.push(["d","Gluten free (label)"]);
+  return o.map(x=>`<span class="b ${x[0]}">${x[1]}</span>`).join("");
+}
+const rules={
+  wheat:s=>s.f.has("w")||s.f.has("g"),
+  soya:s=>s.f.has("s"),
+  milk:s=>s.f.has("m")||s.f.has("mf"),
+  coconut:s=>s.f.has("c"),
+  colour:s=>s.f.has("e"),
+  vegan:s=>s.f.has("v"),
+  nopork:s=>!s.f.has("p"),
+  halal:s=>s.f.has("h")
+};
+const avoidKeys=["wheat","soya","milk","coconut","colour"];
+const active=new Set();
+const list=document.getElementById("list"),q=document.getElementById("q");
+function render(){
+  const t=q.value.trim().toLowerCase();
+  const rows=D.filter(s=>{
+    for(const k of active){
+      const m=rules[k](s);
+      if(avoidKeys.includes(k)?m:!m)return false;
+    }
+    return !t||(s.name+" "+s.desc+" "+plain(s.ing)).toLowerCase().includes(t);
+  });
+  list.innerHTML=rows.map(s=>`<li><details><summary><span class="name">${esc(s.name)}</span>${s.desc?`<p class="sub">${esc(s.desc)}</p>`:""}<span class="badges">${badges(s.f)}</span></summary><div class="more"><h3>Allergens</h3><p>${bold(s.all)}</p><h3>Ingredients</h3><p>${bold(s.ing)}</p>${s.note?`<h3>Note</h3><p>${esc(s.note)}</p>`:""}</div></details></li>`).join("");
+  document.getElementById("count").textContent=`Showing ${rows.length} of ${D.length} sweets`;
+  document.getElementById("empty").hidden=rows.length>0;
+  document.getElementById("reset").hidden=!(active.size||t);
+}
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  const k=c.dataset.k,on=c.getAttribute("aria-pressed")!=="true";
+  c.setAttribute("aria-pressed",on);on?active.add(k):active.delete(k);render();
+}));
+q.addEventListener("input",render);
+document.getElementById("reset").addEventListener("click",()=>{
+  active.clear();q.value="";document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed","false"));render();
+});
+render();
+</script>
+</body></html>
